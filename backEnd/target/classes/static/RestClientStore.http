@@ -1,0 +1,40 @@
+
+# Frederick Stores testng
+# Get all stores
+###
+GET http://localhost:8080/stores
+Content-Type: application/json
+Authorization: Basic alex@gmail.com root
+Accept: application/json
+
+# Get stores by id
+###
+GET http://localhost:8080/stores/1
+Accept: application/json
+
+# Get stores by userId
+###
+GET http://localhost:8080/stores/booking/1
+Accept: application/json
+
+# Get stores by expenditure
+###
+GET http://localhost:8080/stores/expenditure/6
+
+###
+GET http://localhost:8080/bystore
+Accept: application/json
+Content-Type: application/json
+{ "storeId": 1,
+    "name": "StoreLv",
+    "location": "Orchard",
+    "capacity": 10,
+    "description": "Singapore"
+}
+
+
+
+
+
+
+

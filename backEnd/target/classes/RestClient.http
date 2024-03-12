@@ -1,0 +1,142 @@
+#POST User 
+POST http://localhost:8080/users
+Content-Type: application/json
+Authorization: Basic alex@gmail.com root
+
+{ "name":"belbel", "number":"13",
+  "email":"belbel@example.com","hashPassword":"belbel",
+  "authorities": ["ROLE_ADMIN"]
+}
+
+###
+POST http://localhost:8080/users
+Content-Type: application/json
+{ "name":"kaneki", "number":"1313",
+  "email":"kaneki@example.com","hashPassword":"unravel",
+  "authorities": "ROLE_ADMIN"
+}
+
+###
+# Get User By Email
+GET http://localhost:8080/users/email/belbel@example.com
+
+###
+# Get All Users
+GET http://localhost:8080/users
+Accept: application/json
+
+###
+#Delete User
+DELETE http://localhost:8080/users/email/belbel@example.com
+
+
+###
+#POST Member
+POST http://localhost:8080/memberships?memberId=4&tier=supreme
+Content-Type: application/json
+###
+# UPDATE USER WITH MEMBERID
+PUT http://localhost:8080/users/belbel@example.com/update-membership/4
+Content-Type: application/json
+
+{
+  "email" : "belbel@example.com",
+  "memberId" : 4
+}
+###
+#GET BOOKINGCOUNT
+GET http://localhost:8080/users/belbel@example.com/booking-count
+Content-Type: application/json
+
+
+####################################################################################################################
+#IN PROGRESS
+
+### TEST UPDATE USER
+#POST Expenditure
+POST http://localhost:8080/expenditures
+Content-Type: application/json
+Authorization: Basic alex@gmail.com goodpassword
+
+{
+  "date": "2023-01-09", "amount": 88.88,
+  "storeId" : "555", "memberId": "4"
+}
+
+###
+# Normal user posting an Expenditure (fail = 403 Forbidden which means it is working)
+POST http://localhost:8080/expenditures
+Content-Type: application/json
+Authorization: Basic ggobz@me.com lamepassword
+
+{
+  "date": "2023-02-09", "amount": 82.8,
+  "storeId" : "55", "memberId": "3"
+}
+
+
+########################################
+###   TEST UPDATE EXPENDITURE        ###
+########################################
+# Admin updating an Expenditure
+PUT http://localhost:8080/expenditures/2
+Content-Type: application/json
+Authorization: Basic alex@gmail.com goodpassword
+
+{
+"date": "2023-04-12", "amount": 95.95,
+"storeId" : "558", "memberId": "7"
+}
+
+###
+# Normal user updating an Expenditure (fail)
+PUT http://localhost:8080/expenditures/1
+Content-Type: application/json
+Authorization: Basic ggobz@me.com lamepassword
+
+{
+  "date": "2023-03-16", "amount": 105.00,
+  "storeId" : "559", "memberId": "8"
+}
+
+########################################
+###   TEST DELETE EXPENDITURE        ###
+########################################
+# Admin deleting the expenditure
+DELETE http://localhost:8080/expenditures/2
+Authorization: Basic alex@gmail.com goodpassword
+
+###
+# Normal User delete expenditures (Fail)
+DELETE http://localhost:8080/expenditures/3
+Authorization: Basic ggobz@me.com lamepassword
+
+########################################
+###   TEST GET BY MEM ID         ###
+########################################
+# admin is fetching expenditures by memberId
+GET http://localhost:8080/expenditures/member/8
+Authorization: Basic alex@gmail.com goodpassword
+
+###
+#  regular user fetch expenditures by memberId
+GET http://localhost:8080/expenditures/member/7
+Authorization: Basic ggobz@me.com lamepassword
+
+
+
+
+
+###########################
+#POST Booking
+POST http://localhost:8080/bookings
+Content-Type: application/json
+
+{
+  "BookingDate": "2023-09-09" , "BookingTime" : "09:09:09",
+  "storeId" : "555", "userId" : "1"
+}
+
+
+
+
